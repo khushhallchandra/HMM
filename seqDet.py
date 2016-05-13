@@ -1,4 +1,7 @@
+# sequence detection using viterbi algorithm
+import pylab
 from pomegranate import *
+from matplotlib import pyplot as plt
 # To define HMM we need (A,B,pi)
 # Define B
 urn1 = DiscreteDistribution({'R':0.1,'B':0.4,'G':0.5})
@@ -12,7 +15,7 @@ s2 = State(urn2, name = 'urn2')
 s3 = State(urn3, name = 'urn3')
 
 hmm = HiddenMarkovModel('Ball pick up')
-hmm.add_states(s1,s2,s3)
+hmm.add_states([s1,s2,s3])
 
 # Define Pi
 hmm.add_transition(hmm.start, s1, 0.4)
@@ -34,4 +37,8 @@ hmm.add_transition(s3, s3, 0.3)
 
 hmm.bake()
 
-
+seq = list('RRGBBBGGRR')
+logp, path = hmm.viterbi( seq )
+print "Sequence: ",''.join(seq)
+print "Log Probability: ",logp
+print "Path: {}".format(" ".join( state.name for idx, state in path[1:-1] ) )
