@@ -15,10 +15,24 @@ def correctPair(C_k,S):
     l_neg = len(C_k_neg)
     sortedPos,n1 = count_inversion(C_k_pos)
     sortedNeg,n2 = count_inversion(C_k_neg)
-    N = n1 + l_neg*(l_neg-1)/2 - n2
-    print sortedPos
-    print sortedNeg
-    return N
+    #print sortedPos
+    #print sortedNeg
+    
+    n3 = 0
+    i = 0
+    count = 0
+    for item in sortedNeg:
+        for j in range(i,l_pos):
+            if(item <= sortedPos[j]):
+                break
+            else:
+                count += 1
+        i = count
+        n3 += count
+    # n1 represents the no. of inversion considering less than or equal to
+    N = n1 + l_neg*(l_neg-1)/2 - n2 +n3
+    #print n3 
+    return l*(l-1)/2 - N
 
 
 def count_inversion(lst):
@@ -50,23 +64,6 @@ def merge_count_split_inversion(left, right):
     result += right[j:]
     return result, count        
 
-
-#test code
-input_array_1 = []  #0
-input_array_2 = [1] #0
-input_array_3 = [1, 5]  #0
-input_array_4 = [4, 1] #1
-input_array_5 = [4, 1, 2, 3, 9] #3
-input_array_6 = [4, 1, 3, 2, 9, 5]  #5
-input_array_7 = [4, 1, 3, 2, 9, 1]  #8
-
-#print count_inversion(input_array_1)
-#print count_inversion(input_array_2)
-#print count_inversion(input_array_3)
-#print count_inversion(input_array_4)
-#print count_inversion(input_array_5)
-#print count_inversion(input_array_6)
-print count_inversion(input_array_7)
 
 a = [ 2,4,3,1,5]
 b = [1,1,-1,-1,1]
