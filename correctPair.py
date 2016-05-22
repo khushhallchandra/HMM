@@ -35,15 +35,15 @@ def correctPair(C_k,S):
     return l*(l-1)/2 - N
 
 
-def count_inversion(lst):
-    return merge_count_inversion(lst)
+def count_inversion(lis):
+    return merge_count_inversion(lis)
 
-def merge_count_inversion(lst):
-    if len(lst) <= 1:
-        return lst, 0
-    middle = int( len(lst) / 2 )
-    left, a = merge_count_inversion(lst[:middle])
-    right, b = merge_count_inversion(lst[middle:])
+def merge_count_inversion(lis):
+    if len(lis) <= 1:
+        return lis, 0
+    middle = int( len(lis) / 2 )
+    left, a = merge_count_inversion(lis[:middle])
+    right, b = merge_count_inversion(lis[middle:])
     result, c = merge_count_split_inversion(left, right)
     return result, (a + b + c)
 
